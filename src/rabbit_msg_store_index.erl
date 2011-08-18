@@ -14,12 +14,19 @@
 %% Copyright (c) 2007-2011 VMware, Inc.  All rights reserved.
 %%
 
--include("rabbit.hrl").
+-module(rabbit_msg_store_index).
 
--ifdef(use_specs).
+-export([behaviour_info/1]).
 
--type(msg() :: any()).
-
--endif.
-
--record(msg_location, {msg_id, ref_count, file, offset, total_size}).
+behaviour_info(callbacks) ->
+    [{new,            1},
+     {recover,        1},
+     {lookup,         2},
+     {insert,         2},
+     {update,         2},
+     {update_fields,  3},
+     {delete,         2},
+     {delete_by_file, 2},
+     {terminate,      1}];
+behaviour_info(_Other) ->
+    undefined.

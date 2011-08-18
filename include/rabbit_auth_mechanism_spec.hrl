@@ -14,12 +14,15 @@
 %% Copyright (c) 2007-2011 VMware, Inc.  All rights reserved.
 %%
 
--include("rabbit.hrl").
-
 -ifdef(use_specs).
 
--type(msg() :: any()).
+-spec(description/0 :: () -> [{atom(), any()}]).
+-spec(should_offer/1 :: (rabbit_net:socket()) -> boolean()).
+-spec(init/1 :: (rabbit_net:socket()) -> any()).
+-spec(handle_response/2 :: (binary(), any()) ->
+                                {'ok', rabbit_types:user()} |
+                                {'challenge', binary(), any()} |
+                                {'protocol_error', string(), [any()]} |
+                                {'refused', string(), [any()]}).
 
 -endif.
-
--record(msg_location, {msg_id, ref_count, file, offset, total_size}).
